@@ -1,6 +1,5 @@
-com/example/carros/api/IndexController.class
-com/example/carros/domain/CarroService.class
-com/example/carros/domain/Carro.class
-com/example/carros/domain/CarroRepository.class
-com/example/carros/api/CarrosController.class
-com/example/carros/CarroApplication.class
+com\example\carros\controller\CarrosController.class
+com\example\carros\controller\IndexController.class
+com\example\carros\CarrosApplication.class
+com\example\carros\domain\Carro.class
+com\example\carros\domain\CarroService.class
