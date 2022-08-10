@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -14,61 +14,46 @@ import java.util.Optional;
 public class CarroService {
 
     @Autowired
-    private CarroRepository rep;
-    public Iterable<Carro> getCarros() { return rep.findAll();}
+    private CarroRepository repository;
 
-    public Optional<Carro> getCarroByid(Long id) {
-        return  rep.findById(id);
+    public List<Carro> findAllCarro() { return repository.findAll();}
+
+    public Carro getCarroById(Long id){return repository.findById(id).get();}
+    public Optional<Carro> getCarroByIdOptional(Long id) {
+        return  repository.findById(id);
     }
 
-    public Iterable<Carro> getCarroByTipo(String tipo) {
-        return rep.findByTipo(tipo);
+    public Iterable<Carro> getCarroByTipo (String tipo) {
+        return repository.findByTipo(tipo);
     }
 
-    public Carro insert(Carro carro) {
+    public Carro save (Carro carro) {
         Assert.isNull(carro.getId(), "Não foi possível inserir o registro");
-        return rep.save(carro);
+        return repository.save(carro);
     }
 
-    public Carro update(Carro carro, Long id) {
-        Assert.notNull(id, "Não foi possível atualizar o registro");
+    public Carro update(Carro carro) {
 
-        //Busca o carro no banco de dados
-        Optional<Carro> optional = getCarroByid(id);
+        Optional<Carro> optional = getCarroByIdOptional(carro.getId());
         if (optional.isPresent()) {
-            Carro db = optional.get();
-            //Copiar as propriedades
-            db.setNome(carro.getNome());
-            db.setTipo(carro.getTipo());
-            System.out.println("Carro id " + db.getId());
+            Carro carroEntity = carro;
+            carroEntity.setNome(carro.getNome());
+            carroEntity.setTipo(carro.getTipo());
 
-            //Atualiza o carro
-            rep.save(db);
+            repository.save(carroEntity);
 
-            return db;
+            return carroEntity;
         } else {
-            throw new RuntimeException("Não foi possível atualizar o registro");
+            throw new RuntimeException();
         }
     }
 
     public void delete(Long id) {
-        Optional<Carro> carro = getCarroByid(id);
+        Optional<Carro> carro = getCarroByIdOptional(id);
         if(carro.isPresent()) {
-            rep.deleteById(id);
+            repository.deleteById(id);
         }
     }
-
-    public  List<Carro> getCarrosFake(){
-            List<Carro> carros = new ArrayList<>();
-
-            carros.add(new Carro( 1L,  "Fusca"));
-            carros.add(new Carro( 2L,  "Brasilia"));
-            carros.add(new Carro( 3L,  "Chevette"));
-
-            return carros;
-        }
-
-
 
 }
 

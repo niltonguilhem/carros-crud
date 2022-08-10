@@ -1,21 +1,19 @@
 package com.example.carros.domain;
 
-import javax.persistence.*;
+public class CarroResponse {
 
-@Entity
-@Table (name = "carro")
-public class Carro {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
-    @Column(name = "nome")
     private String nome;
-    @Column(name = "tipo")
     private String tipo;
 
-    public Carro() {
+    public CarroResponse() {
+
+    }
+
+    public CarroResponse(Long id, String nome, String tipo) {
+        this.id = id;
+        this.nome = nome;
+        this.tipo = tipo;
 
     }
 
@@ -27,12 +25,22 @@ public class Carro {
         this.id = id;
     }
 
+    public CarroResponse withBuilderId(Long id){
+        setId(id);
+        return this;
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public CarroResponse withBuilderNome(String nome){
+        setNome(nome);
+        return this;
     }
 
     public String getTipo() {
@@ -43,17 +51,7 @@ public class Carro {
         this.tipo = tipo;
     }
 
-    public Carro withBuilderId(Long id){
-        setId(id);
-        return this;
-    }
-
-    public Carro withBuilderNome(String nome){
-        setNome(nome);
-        return this;
-    }
-
-    public Carro withBuilderTipo(String tipo){
+    public CarroResponse withBuilderTipo(String tipo){
         setTipo(tipo);
         return this;
     }
