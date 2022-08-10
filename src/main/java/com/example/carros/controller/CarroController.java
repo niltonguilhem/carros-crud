@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping ("/api/v1/carros")
@@ -24,7 +24,7 @@ public class CarroController {
         List<CarroResponse> carroResponseList = carroList.stream().map(carro -> new CarroResponse()
                 .withBuilderId(carro.getId())
                 .withBuilderNome(carro.getNome())
-                .withBuilderTipo(carro.getTipo())).collect(Collectors.toList());
+                .withBuilderTipo(carro.getTipo())).toList();
         return new ResponseEntity<>(carroResponseList, HttpStatus.OK);
     }
 
