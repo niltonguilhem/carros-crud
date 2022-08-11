@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -45,12 +46,12 @@ public class CarroController {
         return service.getCarroByTipo(tipo);
     }*/
     @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<CarroResponse> getTipo(@PathVariable("tipo") String tipo) {
-        Carro carro = (Carro) service.getCarroByTipo(tipo);
-        CarroResponse response = new CarroResponse()
+    public ResponseEntity<List<CarroResponse>> getTipo(@PathVariable("tipo") String tipo) {
+        List<Carro> carroList = service.getCarroByTipo(tipo);
+        List<CarroResponse> response = carroList.stream().map(carro -> new CarroResponse()
                 .withBuilderId(carro.getId())
                 .withBuilderNome(carro.getNome())
-                .withBuilderTipo(carro.getTipo());
+                .withBuilderTipo(carro.getTipo())).collect(Collectors.toList());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

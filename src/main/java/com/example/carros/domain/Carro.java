@@ -43,11 +43,6 @@ public class Carro {
         this.tipo = tipo;
     }
 
-    public Carro withBuilderId(Long id){
-        setId(id);
-        return this;
-    }
-
     public Carro withBuilderNome(String nome){
         setNome(nome);
         return this;
@@ -55,6 +50,11 @@ public class Carro {
 
     public Carro withBuilderTipo(String tipo){
         setTipo(tipo);
+        return this;
+    }
+
+    public Carro withBuilderId(Long id){
+        setId(id);
         return this;
     }
 

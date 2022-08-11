@@ -15,19 +15,19 @@ public class CarroRequest {
 
         }
 
-        public String getNome() {
+    public String getNome() {
             return nome;
         }
 
-        public void setNome(String nome) {
+    public void setNome(String nome) {
             this.nome = nome;
         }
 
-        public String getTipo() {
+    public String getTipo() {
             return tipo;
         }
 
-        public void setTipo(String tipo) {
+    public void setTipo(String tipo) {
             this.tipo = tipo;
         }
 }
