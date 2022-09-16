@@ -15,7 +15,7 @@ public class CarroApplication {
 	public static void main(String[] args)throws NamingException, JMXServerErrorException {
 		logger.info("Iniciando a api controle de vagas");
 		SpringApplication.run(CarroApplication.class, args);
-		logger.info("API de controle de vaga iniciada e pronta para receber requisições");
+		logger.info("API de controle de carros iniciada e pronta para receber requisições");
 	}
 
 }
