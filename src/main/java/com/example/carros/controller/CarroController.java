@@ -61,8 +61,9 @@ public class CarroController {
     }
 
     @PostMapping
-    public ResponseEntity<CarroResponse> postCarro(@RequestBody CarroRequest carroRequest){
-        logger.info("m=postCarro - status=start");
+    public ResponseEntity<CarroResponse> postCarro(@RequestBody CarroRequest carroRequest,
+                                                   @RequestHeader(value = "Partner") String Partner){
+        logger.info("m=postCarro - status=start " + Partner);
         Carro carro = service.save(new Carro()
                 .withBuilderNome(carroRequest.getNome())
                 .withBuilderTipo(carroRequest.getTipo()));
@@ -77,8 +78,9 @@ public class CarroController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CarroResponse> putCarro (@PathVariable("id")Long id,
-                                                       @RequestBody CarroRequest carroRequest){
-        logger.info("m=putCarro - status=start " + id);
+                                                   @RequestBody CarroRequest carroRequest,
+                                                   @RequestHeader(value = "Partner") String Partner){
+        logger.info("m=putCarro - status=start " + id + " " + Partner);
         Carro carroUpdate = service.update(new Carro()
                 .withBuilderId(id)
                 .withBuilderNome(carroRequest.getNome())
@@ -88,7 +90,7 @@ public class CarroController {
                 .withBuilderId(carroUpdate.getId())
                 .withBuilderNome(carroUpdate.getNome())
                 .withBuilderTipo(carroUpdate.getTipo());
-        logger.info("m=putCarro - status=finish " + id);
+        logger.info("m=putCarro - status=finish " + id + " " + Partner);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
