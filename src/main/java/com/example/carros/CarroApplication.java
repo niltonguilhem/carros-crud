@@ -13,9 +13,9 @@ public class CarroApplication {
 
 	private static Logger logger = LoggerFactory.getLogger(CarroApplication.class);
 	public static void main(String[] args)throws NamingException, JMXServerErrorException {
-		logger.info("Iniciando a api controle de vagas");
+		logger.info("Iniciando a api de cadastro de veículos");
 		SpringApplication.run(CarroApplication.class, args);
-		logger.info("API de controle de carros iniciada e pronta para receber requisições");
+		logger.info("API de cadastro de veículos iniciada e pronta para receber requisições");
 	}
 
 }
