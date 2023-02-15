@@ -1,6 +1,7 @@
 package com.example.carros.service;
 
 import com.example.carros.domain.Carro;
+import com.example.carros.handler.exception.EntidadeInexistenteException;
 import com.example.carros.repository.CarroRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,9 @@ public class CarroService {
 
     public Carro getCarroById(Long id){
         logger.info("m=getCarroById - status=start " + id);
-        Carro carro = repository.findById(id).get();
+        Carro carro = repository.findById(id)
+                        .orElseThrow(() -> new EntidadeInexistenteException(
+                                String.format("Não existe vaga com este id %d",id)));
         logger.info("m=getCarroById - status=finish " + id);
         return carro;
     }
@@ -65,7 +68,7 @@ public class CarroService {
             return carroEntity;
         } else {
             logger.warn("m=update - status=warn " + carro.getId());
-            throw new RuntimeException("O id informado é inexistente.");
+            throw new EntidadeInexistenteException("O id "+ carro.getId() + " informado é inexistente.");
         }
     }
 
@@ -77,7 +80,7 @@ public class CarroService {
             repository.deleteById(id);
         } else {
             logger.warn("m=delete - status=warn " + id);
-            throw new RuntimeException("O id informado é inexistente.");
+            throw new EntidadeInexistenteException ("O id "+ id +" informado é inexistente." );
         }
     }
 

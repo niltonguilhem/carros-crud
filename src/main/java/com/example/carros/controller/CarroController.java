@@ -9,14 +9,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @RestController
 @RequestMapping ("/api/v1/carros")
+@Validated
 public class CarroController {
 
     private static final Logger logger = LoggerFactory.getLogger(CarroController.class);
@@ -61,7 +64,7 @@ public class CarroController {
     }
 
     @PostMapping
-    public ResponseEntity<CarroResponse> postCarro(@RequestBody CarroRequest carroRequest,
+    public ResponseEntity<CarroResponse> postCarro(@RequestBody @Valid CarroRequest carroRequest,
                                                    @RequestHeader(value = "Partner") String Partner){
         logger.info("m=postCarro - status=start " + Partner);
         Carro carro = service.save(new Carro()
@@ -72,7 +75,7 @@ public class CarroController {
                 .withBuilderId(carro.getId())
                 .withBuilderNome(carro.getNome())
                 .withBuilderTipo(carro.getTipo());
-        logger.info("m=postCarro - status=finish");
+        logger.info("m=postCarro - status=finish " + Partner);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
     }
 
@@ -95,11 +98,12 @@ public class CarroController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
         logger.info("m=delete - status=start " + id);
         service.delete(id);
         logger.info("m=delete - status=finish " + id);
-    }
 
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
