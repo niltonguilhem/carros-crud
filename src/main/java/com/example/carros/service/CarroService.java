@@ -51,9 +51,10 @@ public class CarroService {
 
     public Carro save (Carro carro) {
         logger.info("m=save - status=start");
-        Assert.isNull(carro.getId(), "Não foi possível inserir o registro");
+        Carro carroSave = repository.save(carro);
         logger.info("m=save - status=finish");
         return repository.save(carro);
+
     }
 
     public Carro update(Carro carro) {

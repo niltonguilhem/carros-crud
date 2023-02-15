@@ -3,6 +3,7 @@ package com.example.carros.handler.exceptionHandler;
 import com.example.carros.handler.exception.EntidadeInexistenteException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity<?> handleInvalidFormatExceptio(
             InvalidFormatException exception, WebRequest request) {
+        return ResponseEntity.status (HttpStatus.NOT_FOUND)
+                .body(exception);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> handleDataIntegrityViolationException(
+            DataIntegrityViolationException exception, WebRequest request) {
         return ResponseEntity.status (HttpStatus.NOT_FOUND)
                 .body(exception);
     }

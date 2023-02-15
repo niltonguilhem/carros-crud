@@ -1,6 +1,7 @@
 package com.example.carros.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "carro")
@@ -10,9 +11,13 @@ public class Carro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "nome")
+
+    @NotNull
+    @Column(nullable = false)
     private String nome;
-    @Column(name = "tipo")
+
+    @NotNull
+    @Column(nullable = false)
     private String tipo;
 
     public Carro() {

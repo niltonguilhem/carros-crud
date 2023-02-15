@@ -2,15 +2,13 @@ package com.example.carros.domain;
 
 
 
-import javax.validation.constraints.NotNull;
+
 
 
 public class CarroRequest {
 
-    @NotNull
     private String nome;
 
-    @NotNull
     private String tipo;
 
     public CarroRequest() {
